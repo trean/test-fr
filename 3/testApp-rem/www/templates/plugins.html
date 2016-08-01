@@ -1,0 +1,18 @@
+<ion-view view-title="Plugins">
+    <ion-content class="background">
+        <ion-row class="row" ng-repeat="plugin in plugins" ng-if="$index % 3 === 0">
+            <a href="#/app/plugins/{{plugins[$index].id}}" class="col padding plugin" ng-if="$index < plugins.length">
+                <img class="plugin__image" ng-src="{{plugins[$index].img}}" />
+                <div class="plugin__title">{{plugins[$index].title}}</div>
+            </a>
+            <a href="#/app/plugins/{{plugins[$index + 1].id}}" class="col padding plugin" ng-if="$index + 1 < plugins.length">
+                <img class="plugin__image" ng-src="{{plugins[$index + 1].img}}" />
+                <div class="plugin__title">{{plugins[$index + 1].title}}</div>
+            </a>
+            <a href="#/app/plugins/{{plugins[$index + 2].id}}" class="col padding plugin" ng-if="$index + 2 < plugins.length">
+                <img class="plugin__image" ng-src="{{plugins[$index + 2].img}}" />
+                <div class="plugin__title">{{plugins[$index + 2].title}}</div>
+            </a>
+        </ion-row>
+    </ion-content>
+</ion-view>
