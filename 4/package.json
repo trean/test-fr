@@ -7,14 +7,22 @@
     "test": "test"
   },
   "dependencies": {
-    "normalizeurl": "^0.1.3",
+    "cheerio": "^0.20.0",
+    "async": "^2.0.1",
     "sync-request": "^3.0.1",
-    "cheerio": "^0.20.0"
+    "request": "^2.74.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Liudmila Khotina",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trean/test-fr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trean/test-fr/issues"
+  },
+  "homepage": "https://github.com/trean/test-fr#readme"
 }
