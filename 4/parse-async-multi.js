@@ -26,8 +26,9 @@ function myNormalize(currentUrl, url) {
   } 
 }
 
-// собираем ссылки
-function grabUrl(url, done, pending) {
+// собираем ссылки. добавляем флаг isMain, чтобы запускать рекурсию
+// только в одном случае из n (здесь n=3, вызов ниже в callback запроса)
+function grabUrl(url, done, pending, isMain) {
 
   request(url, function(error, responce, body) {
     // отлавливаем ошибки и сообщаем о них
@@ -58,32 +59,37 @@ function grabUrl(url, done, pending) {
         if (thisUrl !== null && !done[thisUrl]) pending[thisUrl] = i;
       }
     }
-    if (Object.keys(done).length + Object.keys(pending).length < 1000 && Object.keys(pending).length > 0) {
-      getFromPending(done, pending); 
-    } else {
-      printResult(done, pending);
+    if (isMain) {
+      if (Object.keys(done).length + Object.keys(pending).length < 1000 && Object.keys(pending).length > 0) {
+        getFromPending(done, pending, true); 
+        getFromPending(done, pending, false); 
+        getFromPending(done, pending, false); 
+      } else {
+        printResult(done, pending);
+      }
     }
   }); 
 }
 // для ссылок из очереди: 
 // 1. удаляем ссылку из очереди,
 // 2. "грабим" эту ссылку
-function getFromPending(done, pending) {
-  var url = Object.keys(pending)[0];
-  delete pending[url];
-  grabUrl(url, done, pending); 
+function getFromPending(done, pending, isMain) {
+  if (Object.keys(pending).length > 0) {
+    var url = Object.keys(pending)[0];
+    delete pending[url];
+    grabUrl(url, done, pending, isMain);
+  }
 }
 
-getFromPending(done, pending);
-
+getFromPending(done, pending, true);
 
 // выводим на экран результат
 function printResult(done, pending) {
+  pending = Object.keys(pending).slice(0, 1000 - Object.keys(done).length);
   for (key in done) {
     console.log(key);
   }
   for (key in pending) {
-    console.log(key);
+    console.log(pending[key]);
   }   
 }
-

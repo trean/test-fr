@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "cheerio": "^0.20.0",
-    "async": "^2.0.1",
     "sync-request": "^3.0.1",
     "request": "^2.74.0"
   },
